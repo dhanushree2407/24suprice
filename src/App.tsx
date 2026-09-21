@@ -628,3 +628,4 @@ function App() {
 }
 
 export default App;
+$env:Path += ";C:\Users\dhanushree\AppData\Roaming\npm"

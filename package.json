@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite",
-    "preview": "vite preview"
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host"
   },
   "dependencies": {
     "lucide-react": "^1.47.0",
@@ -18,5 +18,8 @@
     "@vitejs/plugin-react": "^4.7.0",
     "tailwindcss": "^4.3.3",
     "vite": "^7.0.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
   }
 }
