@@ -67,11 +67,10 @@ function ScrollReveal({ children, className = '', delay = 0 }: ScrollRevealProps
   return (
     <div
       ref={ref}
-      className={`scroll-reveal ${visible ? 'visible' : ''} ${className}`}
-    >
+      className={`scroll-reveal ${visible ? 'visible' : ''} ${className}`}>
       {children}
     </div>
-  );
+);
 }
 
 type UploadedPhoto = {
@@ -628,4 +627,3 @@ function App() {
 }
 
 export default App;
-$env:Path += ";C:\Users\dhanushree\AppData\Roaming\npm"
