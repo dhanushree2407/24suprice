@@ -124,6 +124,7 @@ function App() {
   const [typedText, setTypedText] = useState('');
   const [showSurprise, setShowSurprise] = useState(false);
   const [uploadedPhotos, setUploadedPhotos] = useState<UploadedPhoto[]>([]);
+  const [selectedPhoto, setSelectedPhoto] = useState<UploadedPhoto | null>(null);
   const surpriseRef = useRef<HTMLDivElement>(null);
 
   const rotateClasses = ['-rotate-3', 'rotate-2', '-rotate-2', 'rotate-1', '-rotate-1', 'rotate-3'];
@@ -373,7 +374,7 @@ function App() {
                 Beautiful Moments
               </h2>
               <p className="font-poppins text-[#666] text-base sm:text-lg">
-                Every picture tells a story — and ours is my favorite
+                My favorite pic of you 🫶❤️
               </p>
             </div>
           </ScrollReveal>
@@ -387,7 +388,7 @@ function App() {
                 <div className="flex items-center justify-center gap-3 mb-8">
                   <div className="h-px w-12 bg-[#ff8fa3]" />
                   <ImagePlus className="text-[#e63946]" size={24} />
-                  <span className="font-script text-2xl text-[#c1121f]">Our Memories</span>
+                  <span className="font-script text-2xl text-[#c1121f]">Buddy😉✨ </span>
                   <ImagePlus className="text-[#e63946]" size={24} />
                   <div className="h-px w-12 bg-[#ff8fa3]" />
                 </div>
@@ -396,16 +397,23 @@ function App() {
                 {uploadedPhotos.map((photo, i) => (
                   <ScrollReveal key={photo.id} delay={i * 100}>
                     <div className={`photo-card ${photo.rotate} bg-white p-3 pb-6 shadow-xl rounded-2xl`}>
-                      <div className="relative overflow-hidden rounded-xl">
-                        <img
-                          src={photo.url}
-                          alt={photo.name}
-                          className="w-full h-64 object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#e63946]/20 to-transparent opacity-0 hover:opacity-100 transition-opacity" />
-                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedPhoto(photo)}
+                        className="block w-full cursor-pointer overflow-hidden rounded-xl focus:outline-none focus:ring-4 focus:ring-[#ff8fa3]/50"
+                        aria-label={`Open ${photo.name} in full size`}
+                      >
+                        <div className="relative overflow-hidden rounded-xl">
+                          <img
+                            src={photo.url}
+                            alt={photo.name}
+                            className="w-full h-64 object-cover transition-transform duration-300 hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#e63946]/20 to-transparent opacity-0 hover:opacity-100 transition-opacity" />
+                        </div>
+                      </button>
                       <p className="font-script text-xl text-[#c1121f] text-center mt-4 px-2">
-                        A moment I will always cherish
+                        my cute annaaa🥰😘
                       </p>
                     </div>
                   </ScrollReveal>
@@ -414,6 +422,34 @@ function App() {
             </div>
           )}
 
+          {selectedPhoto && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+              onClick={() => setSelectedPhoto(null)}
+            >
+              <div
+                className="relative max-w-5xl w-full"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <button
+                  type="button"
+                  onClick={() => setSelectedPhoto(null)}
+                  className="absolute -top-12 right-0 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-xl font-bold text-[#c1121f] shadow-lg transition hover:scale-105"
+                  aria-label="Close full-size photo"
+                >
+                  ×
+                </button>
+                <img
+                  src={selectedPhoto.url}
+                  alt={selectedPhoto.name}
+                  className="max-h-[85vh] w-full rounded-2xl border border-white/20 object-contain shadow-2xl"
+                />
+                <p className="mt-4 text-center font-script text-3xl text-white">
+                  {selectedPhoto.name}
+                </p>
+              </div>
+            </div>
+          )}
 
         </div>
       </section>
